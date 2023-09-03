@@ -1,16 +1,30 @@
 
+type TaskArray = {
+	id: string
+	title: string
+	isDone: boolean
+}
 
-export function Todolist() {
+type PropsType = {
+	title: string
+	tasks: Array<TaskArray>
+	removeTask:(id:string)=> void
+}
+
+export function Todolist(props: PropsType) {
 	return (
 		<div>
-			<h1>learn</h1>
+			<h1>{props.title}</h1>
 			<input type="text" />
 			<button>+</button>
 			<ul>
-				<li><input type="checkbox" />react</li>
-				<li><input type="checkbox" />js</li>
-				<li><input type="checkbox" />css</li>
-				<li><input type="checkbox" />redux</li>
+				{
+					props.tasks.map(t =>
+						<li><input type="checkbox" checked={t.isDone} />{t.title}
+							<button onClick={()=>{props.removeTask(t.id)}}>x</button>
+						</li>
+					)
+				}
 			</ul>
 		</div>
 	)
