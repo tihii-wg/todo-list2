@@ -9,12 +9,19 @@ function App() {
 		{ id: uuid(), title: "js", isDone: true },
 		{ id: uuid(), title: "css", isDone: false },
 		{ id: uuid(), title: "redux", isDone: true }]);
-
-
+		
+	const [filter, setFilter] = useState("all")
+	let tasksForTodolist = tasks;
+	if (filter === "completed") {
+		tasksForTodolist.filter(t => t.isDone === true)
+	}
 	function removeTask(id: string) {
 		let newTasks = tasks.filter(t => t.id !== id)
-      setTasks(newTasks)
+		setTasks(newTasks)
 	}
+
+
+
 	return (
 		<div className="App">
 			<Todolist
