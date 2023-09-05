@@ -40,7 +40,7 @@ function App() {
 		if (task) {
 			task.isDone = isDone;
 		}
-		setTasks([...tasks])
+		setTasks([...tasks]);
 	}
 	return (
 		<div className="App">
