@@ -9,12 +9,13 @@ export type TaskArray = {
 }
 
 type PropsType = {
+	id:string
 	title: string
 	tasks: Array<TaskArray>
-	removeTask: (id: string) => void
-	setTaskFilter: (value: FiltersValueType) => void
-	addTask: (title: string) => void
-	changeStatus: (id: string, isDone: boolean) => void
+	removeTask: (id: string,todoListId:string) => void
+	setTaskFilter: (value: FiltersValueType,todoListId:string) => void
+	addTask: (title: string,todoListId:string) => void
+	changeStatus: (id: string, isDone: boolean,todoListId:string) => void
 	filter: FiltersValueType
 }
 
@@ -26,11 +27,11 @@ export function Todolist(props: PropsType) {
 
 	const addTask = () => {
 		if (newTaskTitle.trim() !== "") {
-			props.addTask(newTaskTitle)
+			props.addTask(newTaskTitle,props.id)
 			setNewTaskTitle("")
 		} else {
 			setError("Field is requared")
-			setNewTaskTitle("")
+			
 		}
 	}
 	const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,9 +44,9 @@ export function Todolist(props: PropsType) {
 		}
 	}
 
-	const onAllClickHandler = () => { props.setTaskFilter("all") }
-	const onActiveClickHandler = () => { props.setTaskFilter("active") }
-	const onCompletedClickHandler = () => { props.setTaskFilter("completed") }
+	const onAllClickHandler = () => { props.setTaskFilter("all",props.id) }
+	const onActiveClickHandler = () => { props.setTaskFilter("active",props.id) }
+	const onCompletedClickHandler = () => { props.setTaskFilter("completed",props.id) }
 
 	return (
 		<div>
@@ -61,9 +62,9 @@ export function Todolist(props: PropsType) {
 			<ul>
 				{
 					props.tasks.map(t => {
-						const onAllClickHandler = () => { props.removeTask(t.id) }
+						const onAllClickHandler = () => { props.removeTask(t.id,props.id) }
 						const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-							props.changeStatus(t.id, e.target.checked)
+							props.changeStatus(t.id, e.target.checked,props.id)
 						}
 						return <li key={t.id} className={t.isDone ? "is-done" : ""}><input
 							type="checkbox"
