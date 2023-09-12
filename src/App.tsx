@@ -2,6 +2,8 @@ import { useState } from 'react';
 import './App.css';
 import { Todolist, TaskArray } from './components/Todolist';
 import uuid from 'react-uuid';
+import { InputForm } from './components/InputForm';
+import { title } from 'process';
 
 export type FiltersValueType = "all" | "active" | "completed";
 
@@ -24,7 +26,7 @@ function App() {
 		let tasks = allTasks[todoListId]
 		let newTasks = [task, ...tasks]
 		allTasks[todoListId] = newTasks
-		setAllTasks({...allTasks});
+		setAllTasks({ ...allTasks });
 	}
 	function changeStatus(id: string, isDone: boolean, todoListId: string) {
 		let tasks = allTasks[todoListId]
@@ -34,8 +36,6 @@ function App() {
 			setAllTasks({ ...allTasks });
 		}
 	}
-
-
 	function setTaskFilter(value: FiltersValueType, todoListId: string) {
 		let todoList = todoLists.find(tl => tl.id == todoListId);
 		if (todoList) {
@@ -43,6 +43,13 @@ function App() {
 		}
 		setTodolist([...todoLists]);
 	}
+	function deleteTodoList(todoListId: string) {
+		let filteredTodolist = todoLists.filter(tl => tl.id !== todoListId);
+		setTodolist(filteredTodolist);
+		delete allTasks[todoListId];
+		setAllTasks({...allTasks});
+	}
+
 	let todolistId1 = uuid();
 	let todolistId2 = uuid();
 
@@ -50,7 +57,6 @@ function App() {
 		{ id: todolistId1, title: "Want to learn", filter: "all" },
 		{ id: todolistId2, title: "Want to buy", filter: "all" }
 	]);
-
 	const [allTasks, setAllTasks] = useState({
 		[todolistId1]: [
 			{ id: uuid(), title: "react", isDone: true },
@@ -64,6 +70,7 @@ function App() {
 
 	return (
 		<div className="App">
+			<InputForm addItem={(title:string)=>{alert(title)}} />
 			{
 				todoLists.map(tl => {
 					let tasksForTodolist = allTasks[tl.id];
@@ -82,6 +89,7 @@ function App() {
 						setTaskFilter={setTaskFilter}
 						addTask={addTask}
 						changeStatus={changeStatus}
+						deleteTodoList={deleteTodoList}
 						filter={tl.filter} />
 				})
 			}
