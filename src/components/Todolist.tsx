@@ -1,7 +1,8 @@
-import { useState, ChangeEvent, KeyboardEvent } from "react"
+import { ChangeEvent } from "react"
 import { FiltersValueType } from "../App"
 import { InputForm } from "./InputForm"
 import { EditSpan } from "./EditSpan"
+
 
 export type TaskArray = {
 	id: string
@@ -17,15 +18,12 @@ type PropsType = {
 	setTaskFilter: (value: FiltersValueType, todoListId: string) => void
 	addTask: (title: string, todoListId: string) => void
 	changeStatus: (id: string, isDone: boolean, todoListId: string) => void
+	changeTaskTitle: (id: string, title: string, todoListId: string) => void
 	deleteTodoList: (todoListId: string) => void
 	filter: FiltersValueType
 }
 
 export function Todolist(props: PropsType) {
-
-
-
-
 
 	const deleteTodoListHandler = () => {
 		props.deleteTodoList(props.id)
@@ -49,12 +47,17 @@ export function Todolist(props: PropsType) {
 						const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
 							props.changeStatus(t.id, e.target.checked, props.id)
 						}
-						return <li key={t.id} className={t.isDone ? "is-done" : ""}>
+
+						const setNewTaskTitle = (newtitle: string) => {
+							props.changeTaskTitle(t.id,newtitle,props.id);
+						}
+
+						return <li key={t.id} className={t.isDone ? "is-done" : "taskTitle"}>
 							<input
 								type="checkbox"
 								checked={t.isDone}
 								onChange={onChangeHandler} />
-							<EditSpan title={t.title}/>
+							<EditSpan title={t.title} setNewTaskTitle={setNewTaskTitle} />
 							<button onClick={onAllClickHandler}>x</button>
 
 						</li>

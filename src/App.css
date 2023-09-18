@@ -15,4 +15,8 @@
 .is-done{
 	opacity: 0.7;
 	text-decoration: line-through;
+	cursor: pointer;
+}
+.taskTitle{
+	cursor: pointer;
 }
