@@ -1,6 +1,7 @@
 import { useState, ChangeEvent, KeyboardEvent } from "react"
 import { FiltersValueType } from "../App"
-import {InputForm} from "./InputForm"
+import { InputForm } from "./InputForm"
+import { EditSpan } from "./EditSpan"
 
 export type TaskArray = {
 	id: string
@@ -22,9 +23,9 @@ type PropsType = {
 
 export function Todolist(props: PropsType) {
 
-	
 
-	
+
+
 
 	const deleteTodoListHandler = () => {
 		props.deleteTodoList(props.id)
@@ -33,9 +34,9 @@ export function Todolist(props: PropsType) {
 	const onActiveClickHandler = () => { props.setTaskFilter("active", props.id) }
 	const onCompletedClickHandler = () => { props.setTaskFilter("completed", props.id) }
 
-const addTask = (title:string)=>{
-props.addTask(title,props.id)
-}
+	const addTask = (title: string) => {
+		props.addTask(title, props.id)
+	}
 
 	return (
 		<div>
@@ -48,11 +49,12 @@ props.addTask(title,props.id)
 						const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
 							props.changeStatus(t.id, e.target.checked, props.id)
 						}
-						return <li key={t.id} className={t.isDone ? "is-done" : ""}><input
-							type="checkbox"
-							checked={t.isDone}
-							onChange={onChangeHandler} />
-							{t.title}
+						return <li key={t.id} className={t.isDone ? "is-done" : ""}>
+							<input
+								type="checkbox"
+								checked={t.isDone}
+								onChange={onChangeHandler} />
+							<EditSpan title={t.title}/>
 							<button onClick={onAllClickHandler}>x</button>
 
 						</li>
@@ -65,3 +67,5 @@ props.addTask(title,props.id)
 		</div>
 	)
 }
+
+
