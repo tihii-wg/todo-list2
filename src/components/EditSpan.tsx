@@ -3,7 +3,7 @@ import { ChangeEvent, useState, KeyboardEvent } from "react";
 
 export type EditSpanPropsType = {
 	title: string
-	setNewTaskTitle: (newTitle: string) => void
+	setNewItem: (newTitle: string) => void
 }
 export function EditSpan(props: EditSpanPropsType) {
 	const [editMode, setEditMode] = useState(false);
@@ -15,12 +15,12 @@ export function EditSpan(props: EditSpanPropsType) {
 	};
 	const viewModeHandler = () => {
 		setEditMode(false);
-		props.setNewTaskTitle(title);
+		props.setNewItem(title);
 	};
 	const enterViewModeHandler = (e: KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === "Enter") {
 			setEditMode(false);
-			props.setNewTaskTitle(title);
+			props.setNewItem(title);
 		}
 	};
 

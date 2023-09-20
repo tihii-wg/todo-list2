@@ -60,6 +60,14 @@ function App() {
 		delete allTasks[todoListId];
 		setAllTasks({ ...allTasks });
 	}
+	function changeTodolistTitle(todoListId: string, newTodolistTitle: string) {
+		let todoList = todoLists.find(tl => tl.id === todoListId);
+		if (todoList) {
+			todoList.title = newTodolistTitle;
+			setTodolist([...todoLists]);
+		}
+		
+	}
 
 	let todolistId1 = uuid();
 	let todolistId2 = uuid();
@@ -113,6 +121,7 @@ function App() {
 						changeStatus={changeStatus}
 						changeTaskTitle={changeTaskTitle}
 						deleteTodoList={deleteTodoList}
+						changeTodolistTitle={changeTodolistTitle}
 						filter={tl.filter} />
 				})
 			}
