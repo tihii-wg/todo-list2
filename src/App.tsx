@@ -60,13 +60,25 @@ function App() {
 		delete allTasks[todoListId];
 		setAllTasks({ ...allTasks });
 	}
+	function addTodolist(title: string) {
+		let todoList: TodoListType = {
+			id: uuid(),
+			title: title,
+			filter: "all"
+		}
+		setTodolist([todoList, ...todoLists]);
+		setAllTasks({
+			...allTasks,
+			[todoList.id]: []
+		})
+	}
 	function changeTodolistTitle(todoListId: string, newTodolistTitle: string) {
 		let todoList = todoLists.find(tl => tl.id === todoListId);
 		if (todoList) {
 			todoList.title = newTodolistTitle;
 			setTodolist([...todoLists]);
 		}
-		
+
 	}
 
 	let todolistId1 = uuid();
@@ -86,18 +98,7 @@ function App() {
 			{ id: uuid(), title: "book", isDone: false },
 			{ id: uuid(), title: "bicycle", isDone: true }]
 	})
-	function addTodolist(title: string) {
-		let todoList: TodoListType = {
-			id: uuid(),
-			title: title,
-			filter: "all"
-		}
-		setTodolist([todoList, ...todoLists]);
-		setAllTasks({
-			...allTasks,
-			[todoList.id]: []
-		})
-	}
+
 	return (
 		<div className="App">
 			<InputForm addItem={addTodolist} />
