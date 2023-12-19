@@ -1,5 +1,6 @@
 
 import './App.css';
+import { Todolist } from './components/Todolist';
 
 
 
@@ -9,22 +10,9 @@ function App() {
 
 	return (
 		<div className="app">
+			<h1 className='logo'>Todo list.</h1>
 			<div className='container'>
-				<h1>What to learn.</h1>
-				<div>
-					<input type="text" />
-					<button>+</button>
-				</div>
-				<ul>
-					<li><input type="checkbox" checked={true} /><span>CSS</span></li>
-					<li><input type="checkbox" checked={true} /><span>JS</span></li>
-					<li><input type="checkbox" checked={false} /><span>React</span></li>
-				</ul>
-				<div>
-					<button>ALL</button>
-					<button>ACTIVE</button>
-					<button>COMPLETE</button>
-				</div>
+				<Todolist />
 			</div>
 		</div>
 	)
