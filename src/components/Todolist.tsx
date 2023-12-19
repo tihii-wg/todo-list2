@@ -1,18 +1,18 @@
 
 
 
-export function Todolist() {
+export function Todolist(props: PropsType) {
 	return (
 		<div className="todolist-iner">
-			<h3>What to learn.</h3>
+			<h3>{props.title}</h3>
 			<div>
 				<input type="text" />
 				<button>+</button>
 			</div>
 			<ul>
-				<li><input type="checkbox" checked={true} /><span>CSS</span></li>
-				<li><input type="checkbox" checked={true} /><span>JS</span></li>
-				<li><input type="checkbox" checked={false} /><span>React</span></li>
+				<li><input type="checkbox" checked={} /><span>{}</span></li>
+				<li><input type="checkbox" checked={} /><span>{}</span></li>
+				<li><input type="checkbox" checked={} /><span>{}</span></li>
 			</ul>
 			<div>
 				<button>ALL</button>
